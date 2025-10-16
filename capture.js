@@ -8,10 +8,25 @@ import * as storage from './storage.js';
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+// Новый хелпер: читаемое UTC-время для имени файла
+function formatTsIso(ts) {
+    const d = new Date(ts);
+    const pad = n => String(n).padStart(2, '0');
+    const YYYY = d.getUTCFullYear();
+    const MM   = pad(d.getUTCMonth() + 1);
+    const DD   = pad(d.getUTCDate());
+    const hh   = pad(d.getUTCHours());
+    const mm   = pad(d.getUTCMinutes());
+    const ss   = pad(d.getUTCSeconds());
+    // Без двоеточий — кроссплатформенно
+    return `${YYYY}-${MM}-${DD}_${hh}-${mm}-${ss}`;
+}
+
 export async function checkHarDir(dir) {
     try { const stat = await fs.stat(dir); return stat.isDirectory(); }
     catch { return false; }
 }
+
 
 export async function startWatching(cfg, runName) {
     const { harDir } = cfg.charles;
@@ -168,10 +183,13 @@ async function processHar(harPath, cfg, runName) {
                 catch { ts = Date.now(); }
             }
 
-            const fileName = (cfg.storage.fileNameTemplate || '{{method}}__{{host}}__{{path}}__{{ts}}.json')
+            const tsIso = formatTsIso(ts);
+            const template = (cfg.storage.fileNameTemplate || '{{method}}__{{host}}__{{path}}__{{ts}}.json');
+            const fileName = template
                 .replace('{{method}}', sanitizeForFile(request.method))
                 .replace('{{host}}', sanitizeForFile(url.hostname))
                 .replace('{{path}}', sanitizeForFile(url.pathname.replaceAll('/', '_').replace(/^_+/, '')))
+                .replace('{{tsIso}}', sanitizeForFile(tsIso))
                 .replace('{{ts}}', String(Math.trunc(ts)));
 
             // если такой файл уже есть — не перезаписываем

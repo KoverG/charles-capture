@@ -12,13 +12,12 @@
   },
   "storage": {
     "dataDir": "./data",
-    "fileNameTemplate": "{{method}}__{{host}}__{{path}}__{{ts}}.json"
+    "fileNameTemplate": "{{tsIso}}__{{host}}__{{path}}__{{method}}.json"
   },
-  "report": {
-    "outFile": "./reports/summary.txt"
-  },
+  "report": { "outFile": "./reports/summary.txt" },
   "runtime": {
     "runName": "",
-    "env": "uat"
+    "env": "uat",
+    "deviceModel": "<Testing Device>"
   }
 }

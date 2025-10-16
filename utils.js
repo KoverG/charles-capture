@@ -1,3 +1,5 @@
+//utils.js
+
 export function sanitizeForFile(s = '') {
     return String(s)
         .replace(/[\\/:*?"<>|\s]+/g, '_')

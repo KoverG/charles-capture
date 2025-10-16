@@ -1,0 +1,12 @@
+{
+  "name": "charles-capture",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node manager.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "open": "^10.1.0"
+  }
+}

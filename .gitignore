@@ -1,0 +1,17 @@
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Runtime artifacts
+node_modules/
+data/
+reports/
+*.har
+
+# Local-only config
+config.json
+config.local.json
+
+# Logs / misc
+npm-debug.log*

@@ -1,0 +1,24 @@
+{
+  "charles": {
+    "harDir": "<ABSOLUTE_PATH_TO_CHARLES_HAR_DIR>",
+    "includeOnly": [],
+    "includeMethod": [],
+    "includeHost": [],
+    "hostGroups": {
+      "stg": ["<stg-host.example.com>"],
+      "uat": ["<uat-host.example.com>"],
+      "prod": ["<prod-host.example.com>"]
+    }
+  },
+  "storage": {
+    "dataDir": "./data",
+    "fileNameTemplate": "{{method}}__{{host}}__{{path}}__{{ts}}.json"
+  },
+  "report": {
+    "outFile": "./reports/summary.txt"
+  },
+  "runtime": {
+    "runName": "",
+    "env": "uat"
+  }
+}
